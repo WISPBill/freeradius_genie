@@ -20,24 +20,6 @@ Once these commands are complete, you should install MariaDB (a replacement for 
 
 Once these commands are complete, you can download FreeRADIUS Genie by executing `wget https://github.com/SonarSoftware/freeradius_genie/archive/master.zip` and then `unzip master.zip`. Once unzipped, enter the directory by typing `cd freeradius_genie-master`.
 
-### A note on hosting
-
-If you're hosting this online, it's likely that your server does not have any swap memory setup. If you've selected a server with a low amount of RAM (1-2G), or even if you've picked more, it can be worthwhile setting up a swap partition to make sure you don't run into any out of memory errors.
-Your swap file size should be, at minimum, be equal to the amount of physical RAM on the server. It should be, at maximum, equal to 2x the amount of physical RAM on the server. A good rule of thumb is to just start by making it equal to the amount of available RAM, increasing to double the RAM if you run into out of memory errors.
-If you run into out of memory errors after moving to 2x the amount of RAM, you should increase the amount of RAM on your server rather than increasing swap. The [SwapFaq](https://help.ubuntu.com/community/SwapFaq) on ubuntu.com can be helpful as well.
-
-To setup swap, run the following commands as root (or by putting 'sudo' in front of each command):
-
-1. `/usr/bin/fallocate -l 4G /swapfile` where 4G is equal to the size of the swap file in gigabytes.
-2. `/bin/chmod 600 /swapfile`
-3. `/sbin/mkswap /swapfile`
-4. `/sbin/swapon /swapfile`
-5. `echo "/swapfile   none    swap    sw    0   0" >> /etc/fstab`
-6. `/sbin/sysctl vm.swappiness=10`
-7. `echo "vm.swappiness=10" >> /etc/sysctl.conf`
-8. `/sbin/sysctl vm.vfs_cache_pressure=50`
-9. `echo "vm.vfs_cache_pressure=50" >> /etc/sysctl.conf`
-
 ## Completing preliminary installation
 
 Now that all the necessary software to run your FreeRADIUS server is installed, you will need to configure your SQL database. To do this, run `/usr/bin/mysql_secure_installation` and answer the questions using the following:
@@ -164,7 +146,3 @@ You now have a very basic, functioning PPPoE server. Login to your Sonar instanc
  
 Now, back in the MikroTik, Click the **Active Connections** tab and try connecting using a PPPoE client, authenticating using the credentials you just created in Sonar. You should be assigned an IP from the pool, and the connection will show up in the list! To assign a static IP, navigate back into Sonar, 
 go to the **Network** tab on an account, and then **IP Assignments**. Assign an IP to the RADIUS account, and then disconnect and reconnect your PPPoE client. You will be assigned the static IP you selected.
-
-### Scaling FreeRADIUS to large networks
-
-The FreeRADIUS [guide to scaling is pretty simple.](http://freeradius.org/features/scalability.html) The short version is, give it lots of RAM, CPU, fast disks, and tweak the couple of settings mentioned in the [scalability guide.](http://freeradius.org/features/scalability.html) If you're running a big network with hundreds of thousands and subscribers, and you want some help, let us know!

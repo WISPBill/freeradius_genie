@@ -13,10 +13,7 @@ Once Ubuntu is installed, SSH in and run the following commands to prepare insta
 
 If you're using an older version of Ubuntu, you may need to run `sudo apt-get install php5-cli php5-mbstring php5-mysql unzip` instead.
 
-Once these commands are complete, you should install MariaDB (a replacement for MySQL) and the FreeRADIUS server. Run the following commands to complete this step:
-
-1. `sudo apt-get install mariadb-server mariadb-client`
-2. `sudo apt-get install freeradius freeradius-common freeradius-utils freeradius-mysql`
+1. `sudo apt-get install freeradius freeradius-common freeradius-utils freeradius-mysql`
 
 Once these commands are complete, you can download FreeRADIUS Genie by executing `wget https://github.com/WISPBill/freeradius_genie.git` and then `unzip master.zip`. Once unzipped, enter the directory by typing `cd freeradius_genie-master`.
 

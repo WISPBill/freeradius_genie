@@ -26,7 +26,6 @@ class Genie
     {
         $options = [
             '_initial' => 'Initial configuration',
-            '_nas' => 'NAS configuration',
             '_mysqlRemote' => 'MySQL remote access configuration',
             '_quit' => 'Quit',
         ];
@@ -105,13 +104,6 @@ class Genie
                     'configure_freeradius' => 'Perform initial FreeRADIUS configuration',
                 ];
                 break;
-            case "_nas":
-                $options = [
-                    'add' => 'Add NAS',
-                    'remove' => 'Remove NAS',
-                    'list' => 'List NAS entries',
-                ];
-                break;
             case "_mysqlRemote":
                 $options = [
                     'enable' => 'Enable remote access',
@@ -174,21 +166,6 @@ class Genie
                         break;
                     default:
                         $this->climate->shout("Whoops - no handler defined for this action!");
-                        break;
-                }
-                break;
-            case "_nas":
-                $nasManagement = new NasManagement();
-                switch ($subMenuSelection)
-                {
-                    case "add":
-                        $nasManagement->addNas();
-                        break;
-                    case "remove":
-                        $nasManagement->deleteNas();
-                        break;
-                    case "list":
-                        $nasManagement->listNas();
                         break;
                 }
                 break;
